@@ -13,6 +13,7 @@ public class CSVreader : MonoBehaviour
     private SphereCollider moonCollider;
     private float radius;
     public GameObject theButton;
+    public GameObject theButtonA;
     private Vector3 myVector;
 
     private List<Vector3> vectorOfVectors;
@@ -33,7 +34,12 @@ public class CSVreader : MonoBehaviour
         vectorOfVectors.Clear();
         vectorOfVectors = QuakeMapping();
         plotAllQuakes();
-        
+
+
+        vectorOfVectors.Clear();
+        vectorOfVectors = StationMapping();
+        plotAll();
+
 
         //List<List<string>> lines = ReadCSVFile(StationFileName);
         //Debug.Log("First value in CSV: " + lines[1][0]);
@@ -42,7 +48,7 @@ public class CSVreader : MonoBehaviour
 
 
 
-    List<List<string>> ReadCSVFile(string fileName)
+    public List<List<string>> ReadCSVFile(string fileName)
     {
         List<List<string>> data = new List<List<string>>();
 
@@ -54,12 +60,14 @@ public class CSVreader : MonoBehaviour
 
             while (true)
             {
+                
                 string line = reader.ReadLine();
                 if (line == null)
                 {
                     break;
                 }
                 List<string> row = new List<string>(line.Split(','));
+
                 data.Add(row);
             }
         }
@@ -77,7 +85,7 @@ public class CSVreader : MonoBehaviour
         List<Vector3> output = new List<Vector3>();
         string longitude;
         string lat;
-        for (int i = 1; i < 7; i++)
+        for (int i = 1; i < stationData.Count; i++)
         {
             lat = stationData[i][1];
             longitude = stationData[i][2];
@@ -99,7 +107,7 @@ public class CSVreader : MonoBehaviour
         List<Vector3> output = new List<Vector3>();
         string longitude;
         string lat;
-        for (int i = 1; i < 29; i++)
+        for (int i = 1; i < quakeData.Count; i++)
         {
             lat = quakeData[i][6];
             longitude = quakeData[i][7];
@@ -133,12 +141,30 @@ public class CSVreader : MonoBehaviour
 
             }
 
-            Instantiate(theButton, vectorOfVectors[i-1], theMoon.transform.rotation, newObject.transform);
-            
+           var holder =  Instantiate(theButton, vectorOfVectors[i-1], theMoon.transform.rotation, newObject.transform);
+            holder.GetComponent<KeepIndex>().thisIndex = i;
         }
 
         
 
+    }
+
+
+    void plotAll()
+    {
+        List<List<string>> quakeData = ReadCSVFile(QuakesFileName);
+
+        GameObject newObject = new GameObject("Apollo");
+        
+        newObject.transform.parent = theMoon.transform;
+    
+        for (int i = 1; i < vectorOfVectors.Count + 1; i++)
+        {
+
+            var holder = Instantiate(theButtonA, vectorOfVectors[i - 1], theMoon.transform.rotation, newObject.transform);
+            holder.GetComponent<KeepIndex>().thisIndex = i;
+        }
+        
     }
 
     private Vector3 GPSLocation(float Lat, float Lon)

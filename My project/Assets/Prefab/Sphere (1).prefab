@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1898059844015085224}
   - component: {fileID: 824182919453235439}
   - component: {fileID: 4546874161153010216}
+  - component: {fileID: 5668249905129988783}
   m_Layer: 0
   m_Name: Sphere (1)
   m_TagString: Untagged
@@ -32,7 +33,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4.067393, y: 4.067393, z: 4.067393}
+  m_LocalScale: {x: 8.155267, y: 8.155267, z: 8.155267}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -106,8 +107,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.5252399
+  m_Center: {x: 0, y: 0.025239805, z: 0}
 --- !u!54 &1898059844015085224
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -252,7 +253,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   newObject: {fileID: 0}
+  menu: {fileID: 0}
   middle: {fileID: 0}
   thePlace: {fileID: 8989198752440899592}
   UIleft: {fileID: 0}
   UIright: {fileID: 0}
+--- !u!114 &5668249905129988783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8989198752440899592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86caca7e1ddfe8940bac3103f69bcb4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisIndex: 0

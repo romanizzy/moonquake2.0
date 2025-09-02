@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SciFiPlanetPointer : MonoBehaviour
 {
@@ -10,7 +11,9 @@ public class SciFiPlanetPointer : MonoBehaviour
     private GameObject myOwnPointer;
 
     public GameObject menu;
-    private Vector3 menuPos;
+    private RectTransform menuTrans;
+    
+    
 
     private Vector3 firstLine = new Vector3(-125,100,-300);
     private LineRenderer myLine;
@@ -36,7 +39,7 @@ public class SciFiPlanetPointer : MonoBehaviour
     {
 
         menu = GameObject.FindGameObjectWithTag("Menu");
-        menuPos = menu.gameObject.transform.position;
+        menuTrans = menu.GetComponent<RectTransform>();
         
 
             newObject = GameObject.FindGameObjectWithTag("Manager").gameObject.GetComponent<ClickOnObject>();
@@ -79,16 +82,21 @@ public class SciFiPlanetPointer : MonoBehaviour
                 UIleft.SetActive(false);
                 UIright.SetActive(true);
 
+                menuTrans.offsetMin = new Vector2(15,410);
+                menuTrans.offsetMax = new Vector2(-1425, -30);
 
-                menu.transform.position = menuPos;
 
             }
             else
             {
-
                 UIleft.SetActive(true);
                 UIright.SetActive(false);
-                menu.transform.position = new Vector3(menuPos.x * -1, menuPos.y, menuPos.z);
+
+                
+
+                menuTrans.offsetMin = new Vector2(1425, 410);
+                menuTrans.offsetMax = new Vector2(-15, -30);
+
 
 
                 myLine.SetPosition(0, myOwnPointer.transform.position);
@@ -103,6 +111,13 @@ public class SciFiPlanetPointer : MonoBehaviour
                 UIleft.SetActive(false);
                 UIright.SetActive(false);
                 myOwnPointer = null;
+
+                menuTrans.offsetMax = new Vector2(-15, -30);
+                menuTrans.offsetMin = new Vector2(1425, 410);
+                
+
+
+
                 myLine.SetPosition(0, middle.transform.position);
                 myLine.SetPosition(1, middle.transform.position);
                 myLine.SetPosition(2, middle.transform.position);
@@ -116,8 +131,25 @@ public class SciFiPlanetPointer : MonoBehaviour
         }
         else//when null
         {
+          
+            menuTrans.offsetMax = new Vector2(-15, -30);
+            menuTrans.offsetMin = new Vector2(1425, 410);
+            
+
+
             UIleft.SetActive(false);
             UIright.SetActive(false);
+        }
+        if(myOwnPointer != null)
+        {
+            if(myOwnPointer.active == false)
+            {
+                myLine.SetPosition(0, middle.transform.position);
+                myLine.SetPosition(1, middle.transform.position);
+                myLine.SetPosition(2, middle.transform.position);
+
+            }
+            
         }
         
 
@@ -129,7 +161,9 @@ public class SciFiPlanetPointer : MonoBehaviour
         }
         else 
         {
+
             myOwnPointer = newObject.currentObject;
+            
         }
 
         
